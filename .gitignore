@@ -1,0 +1,6 @@
+.vscode/**
+ConceptMapMongo/.vs/**
+UserLoginAPI/.vscode/**
+ConceptMapMongo/ConceptMapMongo/bin/**
+ConceptMapMongo/ConceptMapMongo/obj/**
+.vs/**
