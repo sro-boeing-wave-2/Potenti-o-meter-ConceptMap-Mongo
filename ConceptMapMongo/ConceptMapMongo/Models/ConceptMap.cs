@@ -13,6 +13,7 @@ namespace ConceptMapMongo.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string InternalID { get; set; }
         public double Version { get; set; }
-        public string Data { get; set; }
+		public string Domain { get; set; }
+		public ConceptMapData[] Data { get; set; }
     }
 }

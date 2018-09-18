@@ -19,9 +19,9 @@ namespace ConceptMapMongo.Services
             _context = new ConceptMapContext(settings);
         }
 
-        public async Task<List<ConceptMap>> GetDatabyVersion(double version)
+        public async Task<List<ConceptMap>> GetDatabyVersionandDomain(double version,string domain)
         {
-            var result = await _context.Concepts.Find(x => x.Version == version).ToListAsync();//.Find(x => version == x.Version).FirstOrDefaultAsync();
+            var result = await _context.Concepts.Find(x => x.Version == version && x.Domain == domain).ToListAsync();//.Find(x => version == x.Version).FirstOrDefaultAsync();
             return result;
         }
 
@@ -31,9 +31,9 @@ namespace ConceptMapMongo.Services
             return map;
         }
 
-        public async Task<bool> VersionExists(double version)
+        public async Task<bool> VersionExists(double version, string Domain)
         {
-            var result = await _context.Concepts.Find(x => x.Version == version).ToListAsync();
+            var result = await _context.Concepts.Find(x => x.Version == version&& x.Domain == Domain).ToListAsync();
             if(result.Count != 0)
             {
                 return true;
@@ -44,8 +44,8 @@ namespace ConceptMapMongo.Services
 
     public interface IConceptMapControllerService
     {
-        Task<List<ConceptMap>> GetDatabyVersion(double version);
+        Task<List<ConceptMap>> GetDatabyVersionandDomain(double version,string domain);
         Task<ConceptMap> PostData(ConceptMap map);
-        Task<bool> VersionExists(double version);
+        Task<bool> VersionExists(double version,string Domain);
     }
 }

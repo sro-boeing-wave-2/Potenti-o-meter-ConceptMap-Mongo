@@ -21,10 +21,10 @@ namespace ConceptMapMongo.Controllers
         }
 
         //GET: /api/conceptmap/1
-        [HttpGet("{version}")]
-        public async Task<IActionResult> GetData([FromRoute] double version)
+        [HttpGet("{domain}/{version}")]
+        public async Task<IActionResult> GetData([FromRoute] double version,string domain)
         {
-            var result = await _conceptmapservice.GetDatabyVersion(version);
+            var result = await _conceptmapservice.GetDatabyVersionandDomain(version,domain);
             if (result == null)
             {
                 return BadRequest();
@@ -40,13 +40,13 @@ namespace ConceptMapMongo.Controllers
                 return BadRequest(ModelState);
             }
 
-            bool versionExists = await _conceptmapservice.VersionExists(data.Version);
+            bool versionExists = await _conceptmapservice.VersionExists(data.Version,data.Domain);
             if (versionExists)
             {
                 return BadRequest(error: "Version already exists");
             }
             var result = await _conceptmapservice.PostData(data);
-            return CreatedAtAction("GetData", new { result.Version }, result);
+            return CreatedAtAction("GetData", new { result.Version ,result.Domain}, result);
         }
     }
 }
