@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ConceptMapMongo.Models;
 using ConceptMapMongo.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
+
 
 namespace ConceptMapMongo.Controllers
 {
@@ -14,14 +18,17 @@ namespace ConceptMapMongo.Controllers
     public class ConceptMapController : ControllerBase
     {
         private readonly IConceptMapControllerService _conceptmapservice;
+		ConnectionFactory factoryformessagebus = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
 
-        public ConceptMapController(IConceptMapControllerService service)
+		public ConceptMapController(IConceptMapControllerService service)
         {
             _conceptmapservice = service;
         }
 
-        //GET: /api/conceptmap/1
-        [HttpGet("{domain}/{version}")]
+		public object factory { get; private set; }
+
+		//GET: /api/conceptmap/1
+		[HttpGet("{domain}/{version}")]
         public async Task<IActionResult> GetData([FromRoute] double version,string domain)
         {
             var result = await _conceptmapservice.GetDatabyVersionandDomain(version,domain);
@@ -46,7 +53,25 @@ namespace ConceptMapMongo.Controllers
                 return BadRequest(error: "Version already exists");
             }
             var result = await _conceptmapservice.PostData(data);
-            return CreatedAtAction("GetData", new { result.Version ,result.Domain}, result);
+			if (result.Equals(data))
+			{
+				using (var connection = factoryformessagebus.CreateConnection())
+				using (var channel = connection.CreateModel())
+				{
+					channel.QueueDeclare(queue: "Concepts",
+										 durable: false,
+										 exclusive: false,
+										 autoDelete: false,
+										 arguments: null);
+					string bodydata= JsonConvert.SerializeObject(data);
+					channel.BasicPublish(exchange: "",
+										 routingKey: "Concepts",
+										 mandatory: true,
+										 basicProperties: null,
+										 body: Encoding.UTF8.GetBytes(bodydata));
+				}
+			}
+			return CreatedAtAction("GetData", new { result.Domain,result.Version }, result);
         }
     }
 }

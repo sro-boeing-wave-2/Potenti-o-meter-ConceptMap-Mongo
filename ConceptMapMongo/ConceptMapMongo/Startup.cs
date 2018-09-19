@@ -28,11 +28,13 @@ namespace ConceptMapMongo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-			services.AddCors(
-			  options => options.AddPolicy("AllowAccess",
-			  builder => builder.WithOrigins("http://localhost:4200")
-			  )
-			  );
+			services.AddCors(o => o.AddPolicy("AllowSpecificOrigin", builder =>
+			builder.AllowAnyHeader()
+				   .AllowAnyMethod()
+				   .AllowAnyOrigin()
+				   .AllowCredentials()
+				)
+			);
 			services.Configure<Settings>(options =>
             {
                 options.ConnectionString
@@ -55,10 +57,10 @@ namespace ConceptMapMongo
             {
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+			app.UseCors("AllowSpecificOrigin");
+			app.UseHttpsRedirection();
             app.UseMvc();
-			app.UseCors("AllowAccess");
+			
 		}
     }
 }
