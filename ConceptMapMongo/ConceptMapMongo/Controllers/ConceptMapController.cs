@@ -18,7 +18,7 @@ namespace ConceptMapMongo.Controllers
     public class ConceptMapController : ControllerBase
     {
         private readonly IConceptMapControllerService _conceptmapservice;
-		ConnectionFactory factoryformessagebus = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+		ConnectionFactory factoryformessagebus = new ConnectionFactory() { HostName = "messagebroker", UserName = "preety", Password = "preety" };
 
 		public ConceptMapController(IConceptMapControllerService service)
         {

@@ -1,18 +1,23 @@
 version: "3"
 services:
-    web:
-        build: ./ConceptMapMongo/ConceptMapMongo
-        depends_on:
-            - db
-        expose:
-            - "80"
-        labels:
-            - "SERVICE_NAME=ConceptMap"
-            - "SERVICE_TAGS=ConceptMapTag"
-    db:
-        image: "mongo:latest"
-
-    messagebroker:
-        image: "rabbitmq"
-        expose:
-          - "5672"
+  web:
+    build: ./ConceptMapMongo/ConceptMapMongo
+    depends_on:
+      - db
+    ports:
+      - "5005:80"    
+    labels:
+      - "SERVICE_NAME=ConceptMap"
+      - "SERVICE_TAGS=ConceptMapTag"
+    depends_on:
+      - db
+      - messagebroker
+  db:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"
+  messagebroker:
+    image: "rabbitmq"
+    environment:
+      RABBITMQ_DEFAULT_USER: "preety"
+      RABBITMQ_DEFAULT_PASS: "preety"
