@@ -1,0 +1,15 @@
+version: "3"
+services:
+    web:
+        build: ./ConceptMapMongo/ConceptMapMongo
+        depends_on:
+            - db
+        expose:
+            - "80"
+    db:
+        image: "mongo:latest"
+
+    messagebroker:
+        image: "rabbitmq"
+        expose:
+          - "5672"
