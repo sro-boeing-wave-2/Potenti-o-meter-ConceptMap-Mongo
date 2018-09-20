@@ -9,4 +9,6 @@ mono: none
 dotnet: 2.1
 script:
   - dotnet restore ConceptMapMongo/
+after_success:
+  - /bin/bash ./deploy.sh
   
