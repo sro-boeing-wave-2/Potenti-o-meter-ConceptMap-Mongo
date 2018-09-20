@@ -1,0 +1,17 @@
+version: "3"
+services:
+    web:
+        container_name: ConceptMapOntology
+        build: ./ConceptMapMongo .
+        ports:
+            - "4500:80"
+        depends_on:
+            - db
+    db:
+        container_name: mongo
+        image: "mongo:latest"
+
+    messagebroker:
+        image: "rabbitmq"
+        ports:
+          - "5673:5672"

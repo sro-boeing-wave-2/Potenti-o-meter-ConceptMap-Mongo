@@ -7,7 +7,7 @@ namespace ConceptMapMongo.Models
 {
     public class Concept
     {
-		public string ConceptName { get; set; }
+		public string Name { get; set; }
 		public string Domain { get; set; }
 	}
 }

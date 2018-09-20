@@ -25,17 +25,17 @@ namespace ConceptMapMongo.Controllers
             _conceptmapservice = service;
         }
 
-		public object factory { get; private set; }
 
-		//GET: /api/conceptmap/1
+		//GET: /api/conceptmap/domain/version
 		[HttpGet("{domain}/{version}")]
         public async Task<IActionResult> GetData([FromRoute] double version,string domain)
         {
             var result = await _conceptmapservice.GetDatabyVersionandDomain(version,domain);
-            if (result == null)
-            {
-                return BadRequest();
-            }
+            //if (result == null)
+            //{
+            //    return BadRequest();
+            //}
+			var triplet = result.Select(x => x.Triplet);
             return Ok(result);
         }
 
@@ -69,7 +69,10 @@ namespace ConceptMapMongo.Controllers
 										 mandatory: true,
 										 basicProperties: null,
 										 body: Encoding.UTF8.GetBytes(bodydata));
+					Console.WriteLine(bodydata);
+					
 				}
+				
 			}
 			return CreatedAtAction("GetData", new { result.Domain,result.Version }, result);
         }
