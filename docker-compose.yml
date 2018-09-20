@@ -6,6 +6,9 @@ services:
             - db
         expose:
             - "80"
+        labels:
+            - "SERVICE_NAME=ConceptMap"
+            - "SERVICE_TAGS=ConceptMapTag"
     db:
         image: "mongo:latest"
 
