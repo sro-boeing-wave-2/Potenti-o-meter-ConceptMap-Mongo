@@ -15,5 +15,7 @@ namespace ConceptMapMongo.Models
         public double Version { get; set; }
 		public string Domain { get; set; }
 		public ConceptMapData[] Triplet { get; set; }
-    }
+		public string[] Concepts { get; set; }
+
+	}
 }

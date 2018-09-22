@@ -35,7 +35,6 @@ namespace ConceptMapMongo.Controllers
             //{
             //    return BadRequest();
             //}
-			var triplet = result.Select(x => x.Triplet);
             return Ok(result);
         }
 

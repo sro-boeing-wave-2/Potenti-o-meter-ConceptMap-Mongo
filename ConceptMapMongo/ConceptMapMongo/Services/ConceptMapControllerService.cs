@@ -22,6 +22,8 @@ namespace ConceptMapMongo.Services
         public async Task<List<ConceptMap>> GetDatabyVersionandDomain(double version,string domain)
         {
             var result = await _context.Concepts.Find(x => x.Version == version && x.Domain == domain).ToListAsync();//.Find(x => version == x.Version).FirstOrDefaultAsync();
+			var z =result.Select(x => x.Triplet);
+			
             return result;
         }
 

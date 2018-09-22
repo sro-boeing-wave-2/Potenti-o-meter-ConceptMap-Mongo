@@ -14,10 +14,12 @@ services:
       - messagebroker
   db:
     image: "mongo:latest"
-    ports:
-      - "27017:27017"
   messagebroker:
-    image: "rabbitmq"
+    image: "rabbitmq:3.7-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: "preety"
-      RABBITMQ_DEFAULT_PASS: "preety"
+      RABBITMQ_DEFAULT_PASS: "preety"  
+    
