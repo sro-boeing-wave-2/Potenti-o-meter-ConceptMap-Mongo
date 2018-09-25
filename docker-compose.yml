@@ -4,8 +4,8 @@ services:
     build: ./ConceptMapMongo/ConceptMapMongo
     depends_on:
       - db
-    ports:
-      - "5005:80"    
+    expose:
+      - "80"    
     labels:
       - "SERVICE_NAME=ConceptMap"
       - "SERVICE_TAGS=ConceptMapTag"
@@ -16,9 +16,9 @@ services:
     image: "mongo:latest"
   messagebroker:
     image: "rabbitmq:3.7-management"
-    ports:
-      - "5672:5672"
-      - "15672:15672"
+    expose:
+      - "5672"
+      - "15672"
     environment:
       RABBITMQ_DEFAULT_USER: "preety"
       RABBITMQ_DEFAULT_PASS: "preety"  
