@@ -26,5 +26,12 @@ namespace ConceptMapMongo.Data
                 return _database.GetCollection<ConceptMap>("Concepts");
             }
         }
-    }
+		public IMongoCollection<ConceptMapDomain> ConceptMapDomain
+		{
+			get
+			{
+				return _database.GetCollection<ConceptMapDomain>("ConceptMapDomain");
+			}
+		}
+	}
 }
