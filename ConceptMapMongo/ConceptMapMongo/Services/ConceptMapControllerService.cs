@@ -22,7 +22,6 @@ namespace ConceptMapMongo.Services
         public async Task<List<ConceptMap>> GetDatabyVersionandDomain(double version,string domain)
         {
             var result = await _context.Concepts.Find(x => x.Version == version && x.Domain == domain).ToListAsync();//.Find(x => version == x.Version).FirstOrDefaultAsync();
-			var z =result.Select(x => x.Triplet);
 			
             return result;
         }
@@ -30,7 +29,13 @@ namespace ConceptMapMongo.Services
         public async Task<ConceptMap> PostData(ConceptMap map)
         {
             await _context.Concepts.InsertOneAsync(map);
-            return map;
+			ConceptMapDomain conceptMapDomain = new ConceptMapDomain();
+			conceptMapDomain.Domain = map.Domain;
+			conceptMapDomain.Version = map.Version;
+			var result = GetDatabyVersionandDomain(map.Version, map.Domain).Result;
+			conceptMapDomain.ConceptMapId = result.Select(x => x.ID).ToString();
+			await _context.ConceptMapDomain.InsertOneAsync(conceptMapDomain);
+			return map;
         }
 
         public async Task<bool> VersionExists(double version, string Domain)
@@ -42,12 +47,21 @@ namespace ConceptMapMongo.Services
             }
             return false;
         }
-    }
+		public async Task<List<ConceptMapDomain>> GetAllConceptMapByDomain( string domain)
+		{
+			var result = await _context.ConceptMapDomain.Find(x =>  x.Domain == domain).ToListAsync();//.Find(x => version == x.Version).FirstOrDefaultAsync();
+
+			return result;
+		}
+	}
 
     public interface IConceptMapControllerService
     {
         Task<List<ConceptMap>> GetDatabyVersionandDomain(double version,string domain);
         Task<ConceptMap> PostData(ConceptMap map);
         Task<bool> VersionExists(double version,string Domain);
-    }
+		Task<List<ConceptMapDomain>> GetAllConceptMapByDomain(string domain);
+
+
+	}
 }

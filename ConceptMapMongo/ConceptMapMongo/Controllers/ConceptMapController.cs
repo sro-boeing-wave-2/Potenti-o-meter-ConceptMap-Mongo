@@ -37,8 +37,18 @@ namespace ConceptMapMongo.Controllers
             //}
             return Ok(result);
         }
-
-        [HttpPost]
+		//GET: /api/conceptmap/domain
+		[HttpGet("{domain}")]
+		public async Task<IActionResult> GetConceptMap([FromRoute] string domain)
+		{
+			var result = await _conceptmapservice.GetAllConceptMapByDomain( domain);
+			//if (result == null)
+			//{
+			//    return BadRequest();
+			//}
+			return Ok(result);
+		}
+		[HttpPost]
         public async Task<IActionResult> PostData([FromBody] ConceptMap data)
         {
             if (!ModelState.IsValid)
