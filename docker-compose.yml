@@ -19,7 +19,7 @@ services:
     # expose:
     #   - "5672"
     #   - "15672"
-    network_mode: host
+    # network_mode: host
     environment:
       RABBITMQ_DEFAULT_USER: "preety"
       RABBITMQ_DEFAULT_PASS: "preety"  
