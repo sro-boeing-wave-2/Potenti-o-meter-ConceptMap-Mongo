@@ -18,7 +18,8 @@ namespace ConceptMapMongo.Controllers
     public class ConceptMapController : ControllerBase
     {
         private readonly IConceptMapControllerService _conceptmapservice;
-		ConnectionFactory factoryformessagebus = new ConnectionFactory() { HostName = "messagebroker", UserName = "preety", Password = "preety" };
+        static string consulIP = Environment.GetEnvironmentVariable("MACHINE_LOCAL_IPV4");
+		ConnectionFactory factoryformessagebus = new ConnectionFactory() { HostName = consulIP , UserName = "preety", Password = "preety" };
 
 		public ConceptMapController(IConceptMapControllerService service)
         {
