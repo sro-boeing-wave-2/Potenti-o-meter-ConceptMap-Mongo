@@ -14,6 +14,7 @@ services:
       - messagebroker
     volumes:
       - "/machine_config:/app/machine_config"
+    network_mode: host
   db:
     image: "mongo:latest"
   messagebroker:
