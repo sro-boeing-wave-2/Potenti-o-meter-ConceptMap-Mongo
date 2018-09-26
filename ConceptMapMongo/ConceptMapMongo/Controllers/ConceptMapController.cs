@@ -24,7 +24,13 @@ namespace ConceptMapMongo.Controllers
         {
             _conceptmapservice = service;
         }
-
+		//GET: /api/conceptmap/domain
+		[HttpGet("domain")]
+		public async Task<IActionResult> GetDomain()
+		{
+			var result = await _conceptmapservice.GetAllDistinctDomainAsync();
+			return Ok(result);
+		}
 
 		//GET: /api/conceptmap/domain/version
 		[HttpGet("{domain}/{version}")]

@@ -53,6 +53,13 @@ namespace ConceptMapMongo.Services
 
 			return result;
 		}
+
+		public async Task<List<string>> GetAllDistinctDomainAsync()
+		{
+			var result = await _context.ConceptMapDomain.Find(x => true).ToListAsync();
+			var domain =result.Select(x => x.Domain).Distinct();
+			return domain.ToList();
+		}
 	}
 
     public interface IConceptMapControllerService
@@ -61,6 +68,7 @@ namespace ConceptMapMongo.Services
         Task<ConceptMap> PostData(ConceptMap map);
         Task<bool> VersionExists(double version,string Domain);
 		Task<List<ConceptMapDomain>> GetAllConceptMapByDomain(string domain);
+		Task<List<string>> GetAllDistinctDomainAsync();
 
 
 	}
