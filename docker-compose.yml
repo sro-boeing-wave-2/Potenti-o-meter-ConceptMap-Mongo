@@ -24,5 +24,4 @@ services:
     network_mode: host
     environment:
       RABBITMQ_DEFAULT_USER: "preety"
-      RABBITMQ_DEFAULT_PASS: "preety"  
-    
+      RABBITMQ_DEFAULT_PASS: "preety"
