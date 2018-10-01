@@ -17,11 +17,13 @@ services:
     # network_mode: host
   db:
     image: "mongo:latest"
+    restart: always
   messagebroker:
     image: "rabbitmq:3.7-management"
     ports:
       - "5672:5672"
       - "15672:15672"
+    restart: always
     # network_mode: host
     environment:
       RABBITMQ_DEFAULT_USER: "preety"
