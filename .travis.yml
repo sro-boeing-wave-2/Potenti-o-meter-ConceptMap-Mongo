@@ -10,4 +10,6 @@ dotnet: 2.1
 script:
   - dotnet restore ConceptMapMongo/
 after_success:
-  - /bin/bash ./deploy.sh  
+  on:
+    branch: master
+      - /bin/bash ./deploy.sh  
