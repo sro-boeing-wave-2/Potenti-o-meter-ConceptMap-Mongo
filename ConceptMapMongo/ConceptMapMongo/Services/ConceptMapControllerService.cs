@@ -65,6 +65,20 @@ namespace ConceptMapMongo.Services
 			DeleteResult actionResult = await _context.ConceptMapDomain.DeleteManyAsync(Builders<ConceptMapDomain>.Filter.Eq("Domain", domain));
 			return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
 		}
+		public async Task<List<ConceptMapDomain>> GetAllConceptMapDomain()
+		{
+			var result = await _context.ConceptMapDomain.Find(x => true).ToListAsync();
+			
+			return result;
+		}
+		public async Task<bool> DeleteConceptMapDomainById(string id)
+		{
+			DeleteResult actionResult = await _context.ConceptMapDomain.DeleteOneAsync(Builders<ConceptMapDomain>.Filter.Eq("ID", id));
+			return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
+
+		
+		}
+
 	}
 
     public interface IConceptMapControllerService
@@ -75,6 +89,8 @@ namespace ConceptMapMongo.Services
 		Task<List<ConceptMapDomain>> GetAllConceptMapByDomain(string domain);
 		Task<List<string>> GetAllDistinctDomainAsync();
 		Task<bool> DeleteAllConceptMapByDomain(string domain);
+		Task<List<ConceptMapDomain>> GetAllConceptMapDomain();
+		Task<bool> DeleteConceptMapDomainById(string id);
 
 
 

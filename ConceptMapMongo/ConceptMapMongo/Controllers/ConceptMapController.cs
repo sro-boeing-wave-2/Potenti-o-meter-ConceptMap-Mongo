@@ -103,5 +103,21 @@ namespace ConceptMapMongo.Controllers
 			}
 			return CreatedAtAction("GetData", new { result.Domain,result.Version }, result);
         }
-    }
+		//GET: /api/conceptmapdomain
+		[HttpGet("conceptmapdomain")]
+		public async Task<IActionResult> GetAllConceptMap()
+		{
+			var result = await _conceptmapservice.GetAllConceptMapDomain();
+			return Ok(result);
+		}
+
+		//GET: /api/conceptmapdomain/id
+		[HttpGet("conceptmapdomain/{id}")]
+		public async Task<IActionResult> DeleteAllConceptMap([FromRoute] string id)
+		{
+			var result = await _conceptmapservice.DeleteConceptMapDomainById(id);
+			return Ok(result);
+		}
+
+	}
 }
