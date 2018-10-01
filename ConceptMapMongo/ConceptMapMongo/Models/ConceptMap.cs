@@ -16,6 +16,17 @@ namespace ConceptMapMongo.Models
 		public string Domain { get; set; }
 		public ConceptMapData[] Triplet { get; set; }
 		public string[] Concepts { get; set; }
+		public ContentTriplet[] contentConceptTriplet{ get; set; }
 
+	}
+	public class Content {
+		
+		public string Url { get; set; }
+	}
+	public class ContentTriplet
+	{
+		public Content Source { get; set; }
+		public Concept Target { get; set; }
+		public Predicate Relationship { get; set; }
 	}
 }

@@ -37,7 +37,7 @@ namespace ConceptMapMongo.Controllers
 		[HttpGet("{domain}/{version}")]
         public async Task<IActionResult> GetData([FromRoute] double version,string domain)
         {
-            var result = await _conceptmapservice.GetDatabyVersionandDomain(version,domain);
+            var result = await _conceptmapservice.GetConceptMapbyVersionandDomain(version,domain);
             //if (result == null)
             //{
             //    return BadRequest();
@@ -79,7 +79,7 @@ namespace ConceptMapMongo.Controllers
             {
                 return BadRequest(error: "Version already exists");
             }
-            var result = await _conceptmapservice.PostData(data);
+            var result = await _conceptmapservice.PostConceptMap(data);
 			if (result.Equals(data))
 			{
 				using (var connection = factoryformessagebus.CreateConnection())
