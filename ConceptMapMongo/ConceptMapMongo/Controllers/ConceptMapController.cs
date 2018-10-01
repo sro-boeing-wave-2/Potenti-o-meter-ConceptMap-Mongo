@@ -55,6 +55,17 @@ namespace ConceptMapMongo.Controllers
 			//}
 			return Ok(result);
 		}
+		//Delete: /api/conceptmap/domain
+		[HttpDelete("{domain}")]
+		public async Task<IActionResult> DeleteConceptMap([FromRoute] string domain)
+		{
+			var result = await _conceptmapservice.DeleteAllConceptMapByDomain(domain);
+			//if (result == null)
+			//{
+			//    return BadRequest();
+			//}
+			return Ok(result);
+		}
 		[HttpPost]
         public async Task<IActionResult> PostData([FromBody] ConceptMap data)
         {

@@ -60,6 +60,11 @@ namespace ConceptMapMongo.Services
 			var domain =result.Select(x => x.Domain).Distinct();
 			return domain.ToList();
 		}
+        public async Task<bool> DeleteAllConceptMapByDomain( string domain)
+		{
+			DeleteResult actionResult = await _context.ConceptMapDomain.DeleteManyAsync(Builders<ConceptMapDomain>.Filter.Eq("Domain", domain));
+			return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
+		}
 	}
 
     public interface IConceptMapControllerService
@@ -69,6 +74,9 @@ namespace ConceptMapMongo.Services
         Task<bool> VersionExists(double version,string Domain);
 		Task<List<ConceptMapDomain>> GetAllConceptMapByDomain(string domain);
 		Task<List<string>> GetAllDistinctDomainAsync();
+		Task<bool> DeleteAllConceptMapByDomain(string domain);
+
+
 
 
 	}
