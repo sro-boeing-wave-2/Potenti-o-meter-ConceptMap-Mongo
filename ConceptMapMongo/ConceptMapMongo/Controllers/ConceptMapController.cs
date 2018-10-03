@@ -96,7 +96,7 @@ namespace ConceptMapMongo.Controllers
 										 mandatory: true,
 										 basicProperties: null,
 										 body: Encoding.UTF8.GetBytes(bodydata));
-					Console.WriteLine(bodydata);
+					
 					
 				}
 				
