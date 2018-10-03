@@ -22,11 +22,19 @@ namespace ConceptMapMongo.Models
 	public class Content {
 		
 		public string Url { get; set; }
+		public string[] Tags { get; set; }
+		
 	}
 	public class ContentTriplet
 	{
 		public Content Source { get; set; }
 		public Concept Target { get; set; }
-		public Predicate Relationship { get; set; }
+		public ContentRelationship Relationship { get; set; }
 	}
+	public class ContentRelationship {
+		public string Name { get; set; }
+		public string Taxonomy { get; set; }
+
+	}
+
 }
