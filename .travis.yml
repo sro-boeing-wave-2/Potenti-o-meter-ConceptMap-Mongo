@@ -8,7 +8,7 @@ notifications:
 mono: none
 dotnet: 2.1
 script:
-  - dotnet restore ConceptMapMongo/
+  - chmod +x ./deploy.sh
 after_success:
   on:
     branch: master
