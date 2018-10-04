@@ -25,6 +25,7 @@ namespace ConceptMapMongo.Models
 		public string[] Tags { get; set; }
 		
 	}
+
 	public class ContentTriplet
 	{
 		public Content Source { get; set; }

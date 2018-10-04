@@ -19,7 +19,7 @@ namespace ConceptMapMongo.Controllers
     {
         private readonly IConceptMapControllerService _conceptmapservice;
         static string consulIP = Environment.GetEnvironmentVariable("MACHINE_LOCAL_IPV4");
-		ConnectionFactory factoryformessagebus = new ConnectionFactory() { HostName = consulIP , UserName = "preety", Password = "preety",Port=5672 };
+		ConnectionFactory factoryformessagebus = new ConnectionFactory() { HostName = "messagebroker", UserName = "preety", Password = "preety",Port=5672 };
 
 		public ConceptMapController(IConceptMapControllerService service)
         {
