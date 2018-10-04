@@ -10,7 +10,4 @@ dotnet: 2.1
 script:
   - chmod +x ./deploy.sh
 after_success:
-  on:
-    branch: master
-      - ls -alh
-      - /bin/bash ./deploy.sh  
+  - /bin/bash ./deploy.sh  
