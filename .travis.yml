@@ -12,4 +12,5 @@ script:
 after_success:
   on:
     branch: master
+      - ls -alh
       - /bin/bash ./deploy.sh  
